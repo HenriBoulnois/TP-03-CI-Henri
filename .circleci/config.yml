@@ -79,6 +79,27 @@ jobs:
           paths:
             - node_modules
           key: npm-v2-dependencies-{{ checksum "yarn.lock" }}
+  docgen:
+    docker:
+      - image: cimg/node:lts
+        auth:
+          username: henriboulnois
+          password: $DOCKERHUB_PASSWORD
+    working_directory: /build
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - npm-v2-dependencies-{{ checksum "yarn.lock" }}
+          - npm-v2-dependencies
+      - run: yarn doc:build > /build/doc;
+      - save_cache:
+          paths:
+            - node_modules
+          key: npm-v2-dependencies-{{ checksum "yarn.lock" }}
+      - store_artifacts:
+          path: /build/doc
+          destination: build
 
 workflows:
   build:
@@ -96,3 +117,9 @@ workflows:
           - yarninstall
           - yarnlint
           - unittest
+      - docgen:
+          requires:
+          - yarninstall
+          - yarnlint
+          - unittest
+          - e2etest

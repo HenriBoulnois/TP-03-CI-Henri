@@ -58,12 +58,12 @@ jobs:
         auth:
           username: henriboulnois
           password: $DOCKERHUB_PASSWORD
-        environment:
-          TEST_DATABASE_URL: postgres://psqluer:psqlpassword@localhost:5432/psdb
       - image: circleci/postgres:9.6.5-alpine-ram
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD
+        environment:
+          TEST_DATABASE_URL: postgres://psqluer:psqlpassword@localhost:5432/psdb
     steps:
       - checkout
       - restore_cache:

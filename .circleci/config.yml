@@ -67,7 +67,7 @@ jobs:
         environment:
           POSTGRES_USER: user
           POSTGRES_PASSSWORD: user
-          POSTGRES8DB: psdb
+          POSTGRES_DB: psdb
     steps:
       - checkout
       - restore_cache:

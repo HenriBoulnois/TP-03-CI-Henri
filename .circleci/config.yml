@@ -59,14 +59,15 @@ jobs:
           username: henriboulnois
           password: $DOCKERHUB_PASSWORD
         environment:
-          DATABASE_URL: postgres://POSTGRES_USER:POSTGRES_PSW@localhost:5432/psdb
+          DATABASE_URL: postgres://user:user@localhost:5432/psdb
       - image: circleci/postgres:9.6.5-alpine-ram
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD
         environment:
           POSTGRES_USER: user
-          POSTGRES_PSW: user
+          POSTGRES_PASSSWORD: user
+          POSTGRES8DB: psdb
     steps:
       - checkout
       - restore_cache:

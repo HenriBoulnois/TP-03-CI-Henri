@@ -85,20 +85,19 @@ jobs:
         auth:
           username: henriboulnois
           password: $DOCKERHUB_PASSWORD
-    working_directory: /build
     steps:
       - checkout
       - restore_cache:
           keys:
           - npm-v2-dependencies-{{ checksum "yarn.lock" }}
           - npm-v2-dependencies
-      - run: yarn doc:build > /build/doc;
+      - run: yarn doc:build
       - save_cache:
           paths:
             - node_modules
           key: npm-v2-dependencies-{{ checksum "yarn.lock" }}
       - store_artifacts:
-          path: /build/doc
+          path: docs
           destination: build
 
 workflows:

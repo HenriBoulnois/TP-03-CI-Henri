@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  yarninstall:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -14,3 +14,14 @@ jobs:
           paths:
             - "node_module"
           key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
+  yarnlint:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - run: yarn lint
+
+workflows:
+  build:
+    jobs:
+      - yarninstall
+      - yarnlint

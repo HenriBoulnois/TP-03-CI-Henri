@@ -4,6 +4,7 @@ jobs:
     machine:
       image: ubuntu-2004:202010-01
     steps:
+      - checkout
       - restore_cache:
           keys:
           - npm-v1-dependencies-{{ checksum "yarn.lock" }}

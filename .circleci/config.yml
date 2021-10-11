@@ -7,7 +7,9 @@ jobs:
       - restore_cache:
           keys:
           - npm-v1-dependencies-{{ checksum "yarn.lock" }}
-      - checkout
-      - run:
-          name: "Testing"
-          command: yarn install
+          - npm-v1-dependencies
+      - run: yarn install --path "install"
+      - save_cache:
+          paths:
+            - "install"
+          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}

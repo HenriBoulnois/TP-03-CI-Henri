@@ -25,8 +25,16 @@ jobs:
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - npm-v1-dependencies-{{ checksum "yarn.lock" }}
+          - npm-v1-dependencies
       - run: yarn lint
       - run: yarn format:check
+      - save_cache:
+          paths:
+            - "node_module"
+          key: npm-v1-dependencies-{{ checksum "yarn.lock" }}
   unittest:
     docker:
       - image: cimg/node:lts

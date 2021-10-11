@@ -24,6 +24,7 @@ jobs:
           username: henriboulnois
           password: $DOCKERHUB_PASSWORD
     steps:
+      - checkout
       - run: yarn lint
       - run: yarn format:check
   unittest:
